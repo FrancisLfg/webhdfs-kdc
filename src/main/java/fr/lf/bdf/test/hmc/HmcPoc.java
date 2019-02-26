@@ -19,13 +19,9 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URI;
-import java.rmi.server.ExportException;
 import java.security.PrivilegedExceptionAction;
 import java.util.Arrays;
 import java.util.List;
-
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * POC that shows how to use hadoop-mini-cluster with MiniHdfs + MiniKdc
@@ -53,7 +49,7 @@ public class HmcPoc {
             propertyParser = new PropertyParser(ConfigVars.DEFAULT_PROPS_FILE);
             propertyParser.parsePropsFile();
         } catch (IOException e) {
-            LOG.error("Unable to load property file: {}", propertyParser.getProperty(ConfigVars.DEFAULT_PROPS_FILE));
+            LOG.error(KEY, "unable to load property file", propertyParser.getProperty(ConfigVars.DEFAULT_PROPS_FILE));
         }
     }
 
@@ -111,10 +107,10 @@ public class HmcPoc {
                     new Path(propertyParser.getProperty(ConfigVars.HDFS_TEST_FILE_KEY)));
             String resNa = readerNa.readUTF();
             LOG.info(KEY, resNa);
-            assertEquals(resNa, propertyParser.getProperty(ConfigVars.HDFS_TEST_STRING_KEY));
             readerNa.close();
+            LOG.error(KEY, "should not be able to read, still authenticated ?");
         } catch (AccessControlException e) {
-            LOG.info(KEY, "Not authenticated, as expected !");
+            LOG.info(KEY, "not authenticated, as expected !");
         } catch (Exception e) {
             LOG.error(KEY, "this exception was not expected ...");
         }

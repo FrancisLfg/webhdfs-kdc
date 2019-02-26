@@ -33,7 +33,6 @@ import java.util.List;
  */
 public class HmcPoc {
 
-    // Logger
     private static final Logger LOG = LoggerFactory.getLogger(HmcPoc.class);
 
     private static final String KEY = "[CHECK-LOG] - {}";
@@ -41,7 +40,6 @@ public class HmcPoc {
     private static KdcLocalCluster kdcLocalCluster;
     private static HdfsLocalCluster hdfsLocalCluster;
 
-    // Setup the property parser
     private static PropertyParser propertyParser;
 
     static {
@@ -55,7 +53,7 @@ public class HmcPoc {
 
     public static void main(String... args) {
 
-        List clusters = null;
+        List clusters;
         try {
             clusters = prepareClusters();
         } catch (Exception e) {
